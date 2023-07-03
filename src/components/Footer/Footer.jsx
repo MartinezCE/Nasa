@@ -6,7 +6,10 @@ import "./styles.css";
 const Footer=()=>{
     return(
         <footer>
-            <SiNasa color='white' size={52}/>
+             <a href="#APOD">
+                 <SiNasa color='white' size={62}/>
+             </a>
+           
 
         </footer>
     )

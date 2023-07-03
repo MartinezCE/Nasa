@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from "react";
-import "./styles.css";
 import Popup from "../Popup/Popup";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import "./styles.css";
 
 const Apod = () => {
   const [user, setUser] = useState("");
   const [data, setData] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(""); 
+  const [selectedDate, setSelectedDate] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [maxDate, setMaxDate] = useState(
     new Date().toISOString().split("T")[0]
   );
+  const [like, setLike] = useState(false);
+
+const handleLike=(date,title)=>{
+  console.log(date,title);
+  setLike(!like);
+}
+
   const handleDateChange = (event) => {
-    const selectedDate = event.target.value; 
-    setSelectedDate(selectedDate); 
+    const selectedDate = event.target.value;
+    setSelectedDate(selectedDate);
   };
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -63,18 +71,32 @@ const Apod = () => {
       <div>
         {data && (
           <div
-            onClick={() => {
-              setIsOpen(!isOpen);
-            }}
-            className="cardview "
+            
+            className="cardview"
             style={{ backgroundImage: `url(${data.url})` }}
           >
-            <h2 className="sm:text-3xl xl:text-6xl text-xl z-10">
+            <div onClick={() => {
+              setIsOpen(!isOpen);
+            }} >
+               <h2 className="sm:text-3xl xl:text-6xl text-xl z-10">
               {data.title}
             </h2>
             <div className="data-container z-10">
               <p className="z-10">{data.explanation}</p>
             </div>
+            </div>
+           
+
+            <button className="favorite cursor-pointer" onClick={()=>{handleLike(data.date,data.title)}} >
+          <MdFavorite
+            size={40}
+            style={!like ? { display: "none" } : undefined}
+          />
+          <MdFavoriteBorder
+            size={40}
+            style={like ? { display: "none" } : undefined}
+          />
+        </button>
           </div>
         )}
       </div>

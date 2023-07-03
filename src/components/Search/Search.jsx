@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "../Card/Card";
 import Popup from "../Popup/Popup";
-import {FcPrevious,FcNext} from 'react-icons/fc';
+import { FcPrevious, FcNext } from "react-icons/fc";
 import "./styles.css";
 
 const Search = () => {
@@ -10,17 +10,19 @@ const Search = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedHref, setSelectedHref] = useState(null);
   const [text, setText] = useState(null);
-  const [count,setCount] = useState(1);
-  const [isNext, setIsNext] = useState(true)
-  const [isPrev, setIsPrev]= useState(false)
+  const [count, setCount] = useState(1);
+  const [isNext, setIsNext] = useState(true);
+  const [isPrev, setIsPrev] = useState(false);
 
-  const togglePopup = (href,text) => {
+  const togglePopup = (href, text) => {
     setIsOpen(!isOpen);
-    setText(text)
+    setText(text);
     setSelectedHref(href);
   };
 
-
+  const handleFav = (id, title) => {
+    console.log(id, title, "handle");
+  };
   useEffect(() => {
     const fetchres = () => {
       try {
@@ -29,10 +31,14 @@ const Search = () => {
         )
           .then((response) => response.json())
           .then((data) => {
-            const prevLink = data.collection.links.find((link) => link.rel === "prev");
-            const nextLink = data.collection.links.find((link) => link.rel === "next");
-            prevLink ? setIsPrev(true) : setIsNext(false)
-            nextLink ? setIsNext(true) : setIsPrev(false)
+            const prevLink = data.collection.links.find(
+              (link) => link.rel === "prev"
+            );
+            const nextLink = data.collection.links.find(
+              (link) => link.rel === "next"
+            );
+            prevLink ? setIsPrev(true) : setIsNext(false);
+            nextLink ? setIsNext(true) : setIsPrev(false);
             setRes(data.collection.items);
           })
           .catch((error) => {
@@ -44,7 +50,7 @@ const Search = () => {
     };
 
     fetchres();
-  }, [query,count]);
+  }, [query, count]);
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -65,42 +71,54 @@ const Search = () => {
           value={query}
           className="input"
           onChange={handleChange}
-          onClick={()=>setQuery('')}
+          onClick={() => setQuery("")}
         />
       </div>
-      
+
       <div className="card-container flex sm:flex-row sm:flex-nowrap xl:flex-row xl:flex-nowrap flex-col">
-        <div >
-             <FcPrevious size={62} onClick={()=>setCount(count-1)} style={(!isPrev || count
-              ===1) ? { display: 'none' } : undefined} className="cursor-pointer"/>
+        <div>
+          <FcPrevious
+            size={62}
+            onClick={() => setCount(count - 1)}
+            style={!isPrev || count === 1 ? { display: "none" } : undefined}
+            className="cursor-pointer"
+          />
         </div>
-   
         {res.length > 0 ? (
           res.map((item) => {
             const data = item.data[0];
             const link = item.links[0];
             return (
-              <div onClick={() => togglePopup(link.href,data.description)} className="cursor-pointer">
-                <Card
-                  key={data.nasa_id}
-                  nasa_id={data.nasa_id}
-                  title={data.title}
-                  description={data.description}
-                  href={link.href}
-                />
-               
-              </div>
+              <Card
+                key={data.nasa_id}
+                nasa_id={data.nasa_id}
+                title={data.title}
+                description={`See more ...`}
+                href={link.href}
+                click={() => togglePopup(link.href, data.description)}
+                fav={() => handleFav(data.nasa_id, data.title, data.keywords)}
+              />
             );
           })
         ) : (
-          <p>No se encontro coicidencia</p>
+          <p>No matching results</p>
         )}{" "}
-          {isOpen && <Popup isOpen={isOpen} onClose={togglePopup} hrf={selectedHref} text={text} />}
-     <div>
-    
-   
-      <FcNext size={62} onClick={()=>setCount(count+1)}  style={!isNext ? { display: 'none' } : undefined} className="cursor-pointer"/>
-     </div>
+        {isOpen && (
+          <Popup
+            isOpen={isOpen}
+            onClose={togglePopup}
+            hrf={selectedHref}
+            text={text}
+          />
+        )}
+        <div>
+          <FcNext
+            size={62}
+            onClick={() => setCount(count + 1)}
+            style={!isNext ? { display: "none" } : undefined}
+            className="cursor-pointer"
+          />
+        </div>
       </div>
     </div>
   );
