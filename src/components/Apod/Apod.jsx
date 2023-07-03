@@ -1,0 +1,86 @@
+import React, { useEffect, useState } from "react";
+import "./styles.css";
+import Popup from "../Popup/Popup";
+
+const Apod = () => {
+  const [user, setUser] = useState("");
+  const [data, setData] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(""); 
+  const [isOpen, setIsOpen] = useState(false);
+  const [maxDate, setMaxDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
+  const handleDateChange = (event) => {
+    const selectedDate = event.target.value; 
+    setSelectedDate(selectedDate); 
+  };
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const key = "TFK4Tz2v7uDdDqaMg8147hsNRiHKt1tC0grWnBLe";
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://api.nasa.gov/planetary/apod?api_key=${key}&date=${selectedDate}`
+        );
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        console.error("Error al obtener los datos:", error);
+      }
+    };
+    fetchData();
+  }, [selectedDate]);
+
+  useEffect(() => {
+    const user = window.localStorage.getItem("user");
+    user && setUser(user);
+  }, []);
+
+  return (
+    <div className="apodMain xl:h-screen sm:h-screen " id="APOD">
+      <div className="apodMain-titles  xl:mt-14  sm:mt-14 mt-14 p-8">
+        <h1 className="  text-3xl sm:text-5xl xl:text-8xl ">
+          Astronomy picture of the day
+        </h1>
+        <h2 className="mt-8 text-center text-white text-2xl sm:text-3xl xl:text-5xl">
+          Please choose a date to obtain the astronomical photo of the day
+          {user && `, ${user}`}.
+        </h2>
+      </div>
+
+      <div className="ApodContent xl:flex-row sm:flex-row flex-col-reverse">
+        <input
+          type="date"
+          value={selectedDate}
+          onChange={handleDateChange}
+          min="1995-07-16"
+          max={maxDate}
+        />
+      </div>
+      <div>
+        {data && (
+          <div
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
+            className="cardview "
+            style={{ backgroundImage: `url(${data.url})` }}
+          >
+            <h2 className="sm:text-3xl xl:text-6xl text-xl z-10">
+              {data.title}
+            </h2>
+            <div className="data-container z-10">
+              <p className="z-10">{data.explanation}</p>
+            </div>
+          </div>
+        )}
+      </div>
+      <Popup hrf={data.url} isOpen={isOpen} onClose={togglePopup} text={null} />
+    </div>
+  );
+};
+
+export default Apod;

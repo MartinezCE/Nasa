@@ -1,0 +1,81 @@
+.apodMain {
+ background-image: url("../../assets/top.png");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+}
+
+.apodMain input {
+  min-width: 218px;
+  height: 40px;
+  color: #fff;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  background: #efefeff3;
+  color: #585858;
+  border-radius: 12px;
+}
+
+.data-container {
+  width: 100%;
+  height: 100%;
+}
+.ApodContent{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  justify-content: space-around;
+  align-items: center;
+  gap:24px;
+  margin-bottom: 24px;
+}
+.cardview {
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 70vw;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.44);
+  margin-bottom: 24px;
+  margin:auto;
+  cursor: pointer;
+}
+.cardview::before {
+  content: "";
+position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.503);
+  border-radius: 12px;
+}
+.btn {
+  width: 224px;
+  height: 44px;
+  background-color: #6698cdb5;
+  border-radius: 12px;
+}
+
+.btn:hover {
+  background-color: #6698cd;
+}

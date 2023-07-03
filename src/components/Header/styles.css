@@ -1,0 +1,25 @@
+nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    height: 80px;
+    width: 100%;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.276);
+    color: white;
+  }
+  nav button {
+    border: none;
+   width: 80px;
+   height: 80px;
+  }
+  nav ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }

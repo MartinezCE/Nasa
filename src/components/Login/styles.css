@@ -1,0 +1,69 @@
+.bgVideo {
+  width: 100%;
+  height: 100vh;
+  transition: 0.5;
+  object-fit: cover;
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70vw; 
+  height: 60vh; 
+  background: rgba(255, 255, 255, 0.074);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.44);
+}
+.input{
+  all: unset;
+  outline: "none";
+  border: none; 
+  border-bottom: 2px solid white; 
+  padding: 5px; 
+  background-color: transparent; 
+  color: black; 
+}
+.input:focus{
+  outline: "none"
+}
+.input::placeholder{
+  text-align: center;
+  font-size: bold !important;
+}
+.input:valid{
+  font-size:1.25rem !important;
+  color: rgb(255, 255, 255);
+}
+
+.btn{
+  width:224px;
+  height: 44px;
+  background-color:#6698cdb5 ;
+  border-radius: 12px;
+}
+
+.btn:hover{
+  background-color:#6698cd ;
+}
+@media only screen and (max-width: 320px) {
+ .btn{
+  width: 178px;
+ }
+}

@@ -1,0 +1,14 @@
+footer{
+  /* background-image: url("../../assets/footer.jpg");
+    background-size: cover;
+    background-position:bottom;  */
+    background-color: #321505;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}

@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {  useState, useEffect} from "react";
+import Login from "./components/Login/Login";
+import Main from "./components/Main/Main";
+import "./index.css";
 
 function App() {
+  const [render, setRender] = useState(false);
+
+  useEffect(() => {
+    const name = window.sessionStorage.getItem('user');
+    console.log(name)
+     if(window.sessionStorage.getItem('user') || window.localStorage.getItem('user')){
+      setRender(true)
+     }
+    }, [])
+    
+
+  const handleClick = () => {
+    setRender(true);
+  };
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {render ? <Main /> : <Login handleRender={handleClick} />}
     </div>
   );
 }
