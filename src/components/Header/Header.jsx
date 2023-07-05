@@ -21,7 +21,7 @@ const Header = () => {
               <a href="#SpaceX">Spatial search</a>
             </li>
             <li>
-              <a href="#Mars">Mars</a>
+              <a href="#Fav">Favorites</a>
             </li>
           </ul>
         </div>

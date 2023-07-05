@@ -23,6 +23,7 @@ const Search = () => {
   const handleFav = (id, title) => {
     console.log(id, title, "handle");
   };
+  
   useEffect(() => {
     const fetchres = () => {
       try {
