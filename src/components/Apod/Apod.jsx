@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Popup from "../Popup/Popup";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
-import {saveOrDelete,checkExists} from "../../utils/helpers/storageUtils";
 import "./styles.css";
 
 const Apod = () => {
@@ -29,7 +28,7 @@ const Apod = () => {
     return storedDates.includes(dateString);
   };
 
-  const handleLike = (date, title) => {
+  const handleLike = (date) => {
     saveOrDelete(date);
   };
 

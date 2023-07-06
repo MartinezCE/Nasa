@@ -13,6 +13,19 @@ const Search = () => {
   const [count, setCount] = useState(1);
   const [isNext, setIsNext] = useState(true);
   const [isPrev, setIsPrev] = useState(false);
+  const [searche, setSearche] = useState([]);
+
+  const saveOrDelete = (searcheString) => {
+    const updatedSearches = [...searche];
+    const existingIndex = updatedSearches.indexOf(searcheString);
+    existingIndex !== -1
+      ? updatedSearches.splice(existingIndex, 1)
+      : updatedSearches.push(searcheString);
+    setSearche(updatedSearches);
+    localStorage.setItem("searches", JSON.stringify(updatedSearches));
+  };
+
+ 
 
   const togglePopup = (href, text) => {
     setIsOpen(!isOpen);
@@ -20,10 +33,10 @@ const Search = () => {
     setSelectedHref(href);
   };
 
-  const handleFav = (id, title) => {
-    console.log(id, title, "handle");
+  const handleFav = (title) => {
+    saveOrDelete(title);
   };
-  
+
   useEffect(() => {
     const fetchres = () => {
       try {
@@ -97,7 +110,7 @@ const Search = () => {
                 description={`See more ...`}
                 href={link.href}
                 click={() => togglePopup(link.href, data.description)}
-                fav={() => handleFav(data.nasa_id, data.title, data.keywords)}
+                fav={() => handleFav(data.title)}
               />
             );
           })

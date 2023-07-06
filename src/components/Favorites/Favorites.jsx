@@ -8,7 +8,7 @@ const Favorites = () => {
 
   useEffect(() => {
     const dateArray = JSON.parse(localStorage.getItem("dates") || "[]");
-    const searchArray= JSON.parse(localStorage.getItem("search") || "[]");
+    const searchArray= JSON.parse(localStorage.getItem("searches") || "[]");
     setDates(dateArray);
     setSearches(searchArray);
   }, []);
@@ -31,6 +31,7 @@ const Favorites = () => {
     const updatedSearches = [...searches];
     updatedSearches.splice(index, 1);
     setSearches(updatedSearches);
+    localStorage.setItem("searches", JSON.stringify(updatedSearches));
   };
 
   const deleteAllSearches = () => {
@@ -71,7 +72,7 @@ const Favorites = () => {
           <ul>
             {searches.map((search, index) => (
               <li key={index}>
-                {search}
+                {search.slice(0,20)}
                 <div>
                   <button
                     className="delete-button ml-4 flex items-center"
