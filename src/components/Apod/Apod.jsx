@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Popup from "../Popup/Popup";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import {saveOrDelete,checkExists} from "../../utils/helpers/storageUtils";
 import "./styles.css";
 
 const Apod = () => {
@@ -37,6 +38,7 @@ const Apod = () => {
     setSelectedDate(selectedDate);
     setLike(checkDateExists(selectedDate));
   };
+
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
