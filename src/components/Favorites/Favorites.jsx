@@ -40,7 +40,7 @@ const Favorites = () => {
   };
 
   return (
-    <div className="main pt-12 pb-12" id="#Fav">
+    <div className="main pt-12 pb-12" id="Fav">
       <div className="date mb-12 sm:mb-0 xl:mb-0">
         <h1 className="mb-8">My Favorite Dates</h1>
         <ul>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Popup from "../Popup/Popup";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import {key }from '../../utils/helpers/key';
 import "./styles.css";
 
 const Apod = () => {
@@ -42,7 +43,7 @@ const Apod = () => {
     setIsOpen(!isOpen);
   };
 
-  const key = "TFK4Tz2v7uDdDqaMg8147hsNRiHKt1tC0grWnBLe";
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
