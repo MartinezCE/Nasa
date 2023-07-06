@@ -8,19 +8,34 @@ const Apod = () => {
   const [data, setData] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [maxDate, setMaxDate] = useState(
-    new Date().toISOString().split("T")[0]
-  );
+  const maxDate = new Date().toISOString().split("T")[0];
   const [like, setLike] = useState(false);
+  const [dates, setDates] = useState([]);
 
-const handleLike=(date,title)=>{
-  console.log(date,title);
-  setLike(!like);
-}
+  const saveOrDelete = (date: never) => {
+    const updatedDates = [...dates];
+    const existingIndex = updatedDates.indexOf(date);
+    existingIndex !== -1
+      ? updatedDates.splice(existingIndex, 1)
+      : updatedDates.push(date);
+    setDates(updatedDates);
+    setLike(!like);
+    localStorage.setItem("dates", JSON.stringify(updatedDates));
+  };
+  
+  const checkDateExists = (dateString) => {
+    const storedDates = JSON.parse(localStorage.getItem("dates") || "[]");
+    return storedDates.includes(dateString);
+  };
+
+  const handleLike = (date, title) => {
+    saveOrDelete(date);
+  };
 
   const handleDateChange = (event) => {
     const selectedDate = event.target.value;
     setSelectedDate(selectedDate);
+    setLike(checkDateExists(selectedDate));
   };
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -47,6 +62,10 @@ const handleLike=(date,title)=>{
     user && setUser(user);
   }, []);
 
+  useEffect(() => {
+    setLike(checkDateExists(selectedDate));
+  }, [selectedDate]);
+
   return (
     <div className="apodMain xl:h-screen sm:h-screen " id="APOD">
       <div className="apodMain-titles  xl:mt-14  sm:mt-14 mt-14 p-8">
@@ -71,32 +90,37 @@ const handleLike=(date,title)=>{
       <div>
         {data && (
           <div
-            
             className="cardview"
             style={{ backgroundImage: `url(${data.url})` }}
           >
-            <div onClick={() => {
-              setIsOpen(!isOpen);
-            }} >
-               <h2 className="sm:text-3xl xl:text-6xl text-xl z-10">
-              {data.title}
-            </h2>
-            <div className="data-container z-10">
-              <p className="z-10">{data.explanation}</p>
+            <div
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
+            >
+              <h2 className="sm:text-3xl xl:text-6xl text-xl z-10">
+                {data.title}
+              </h2>
+              <div className="data-container z-10">
+                <p className="z-10">{data.explanation}</p>
+              </div>
             </div>
-            </div>
-           
 
-            <button className="favorite cursor-pointer" onClick={()=>{handleLike(data.date,data.title)}} >
-          <MdFavorite
-            size={40}
-            style={!like ? { display: "none" } : undefined}
-          />
-          <MdFavoriteBorder
-            size={40}
-            style={like ? { display: "none" } : undefined}
-          />
-        </button>
+            <button
+              className="favorite cursor-pointer"
+              onClick={() => {
+                handleLike(data.date, data.title);
+              }}
+            >
+              <MdFavorite
+                size={40}
+                style={!like ? { display: "none" } : undefined}
+              />
+              <MdFavoriteBorder
+                size={40}
+                style={like ? { display: "none" } : undefined}
+              />
+            </button>
           </div>
         )}
       </div>
