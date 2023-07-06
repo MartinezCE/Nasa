@@ -25,8 +25,6 @@ const Search = () => {
     localStorage.setItem("searches", JSON.stringify(updatedSearches));
   };
 
- 
-
   const togglePopup = (href, text) => {
     setIsOpen(!isOpen);
     setText(text);

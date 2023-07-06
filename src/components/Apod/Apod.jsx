@@ -13,7 +13,7 @@ const Apod = () => {
   const [like, setLike] = useState(false);
   const [dates, setDates] = useState([]);
 
-  const saveOrDelete = (date: never) => {
+  const saveOrDelete = (date) => {
     const updatedDates = [...dates];
     const existingIndex = updatedDates.indexOf(date);
     existingIndex !== -1
@@ -43,7 +43,6 @@ const Apod = () => {
     setIsOpen(!isOpen);
   };
 
- 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -126,7 +125,7 @@ const Apod = () => {
           </div>
         )}
       </div>
-      <Popup hrf={data.url} isOpen={isOpen} onClose={togglePopup} text={null} />
+      <Popup hrf={data.url} isOpen={isOpen} onClose={togglePopup} text={data.explanation} />
     </div>
   );
 };
